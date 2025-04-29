@@ -25,6 +25,8 @@ https://github.com/zawhtutwin/appointments-api/blob/master/src/main/java/com/cli
   "password": "password"
 }
 
+```
+
 ---
 
 ## 🔹 `/api/doctors` Sample REsponse
@@ -34,8 +36,9 @@ https://github.com/zawhtutwin/appointments-api/blob/master/src/main/java/com/cli
   "expiresAt": "2025-04-29T04:23:20.485357600Z"
 }
 
+---
 
-application.properties
+### application.properties
 
 ```properties
 spring.application.name=clinic_app
