@@ -7,13 +7,12 @@
 http://localhost:8081/api/auth "POST" \
 https://github.com/zawhtutwin/appointments-api/blob/master/src/main/java/com/clinic/app/controllers/apis/AuthController.java
 
-
 # 📚 API Endpoints Documentation
 
 | URL | Method | Default Request Body | Sample Response |
 | --- | ------ | -------------------- | --------------- |
 | `http://localhost:8081/api/auth` | POST | See [Request Body](#api-auth-request-body) | See [Response](#api-auth-sample-response) |
-| `http://localhost:8081/api/doctors` | GET | *(none)* | See [Response](#api-doctors-sample-response) |
+| `http://localhost:8081/api/doctors` | GET | *(none)* | See [Response](#apidoctors-sample-response) |
 
 ---
 
