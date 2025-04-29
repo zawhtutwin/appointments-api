@@ -4,8 +4,8 @@
 - Use the api key from that request in subsequent request like /api/doctors "GET"
 - Role Based Bearer Token Authorization(Default ROLE_USER)
 
-http://localhost:8081/api/auth "POST" 
-https://github.com/zawhtutwin/appointments-api/blob/master/src/main/java/com/clinic/app/controllers/apis/AuthController.java
+http://localhost:8081/api/auth "POST" \
+https://github.com/zawhtutwin/appointments-api/blob/master/src/main/java/com/clinic/app/controllers/apis/AuthController.java\
 ```json
 {
 	"email": "user.example.com",
@@ -13,9 +13,9 @@ https://github.com/zawhtutwin/appointments-api/blob/master/src/main/java/com/cli
 }
 ```
 
-http://localhost:8081/api/doctor "GET"
-https://github.com/zawhtutwin/appointments-api/blob/master/src/main/java/com/clinic/app/controllers/apis/DoctorApiController.java
-sample json reponse
+http://localhost:8081/api/doctor "GET"\
+https://github.com/zawhtutwin/appointments-api/blob/master/src/main/java/com/clinic/app/controllers/apis/DoctorApiController.java\
+sample json reponse\
 ```json
 [
     {
@@ -26,7 +26,7 @@ sample json reponse
 ]
 ```
 
-application.properties
+application.properties\
 
 ```properties
 spring.application.name=clinic_app
