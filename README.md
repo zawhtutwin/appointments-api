@@ -66,8 +66,3 @@ spring.jpa.database-platform=org.hibernate.community.dialect.SQLiteDialect
 spring.jpa.hibernate.ddl-auto=create
 spring.jpa.show-sql=true
 ```
-│       └── static/
-├── .gitignore
-├── pom.xml
-└── README.md
-```
