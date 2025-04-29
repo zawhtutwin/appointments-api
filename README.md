@@ -1,32 +1,61 @@
 
-**Features:**
-- Get the api key from api/auth "POST" 
-- Use the api key from that request in subsequent request like /api/doctors "GET"
-- Role Based Bearer Token Authorization(Default ROLE_USER)
+# 🏥 Clinic App API
 
-http://localhost:8081/api/auth "POST" 
-https://github.com/zawhtutwin/appointments-api/blob/master/src/main/java/com/clinic/app/controllers/apis/AuthController.java
+Simple REST API for managing doctors and appointments using Spring Boot.  
+Authentication is done via API key using Bearer tokens.
+
+---
+
+## 🔐 Features
+
+- ✅ Get an API key by sending a `POST` request to `/api/auth`.
+- 🔐 Use the API key as a **Bearer token** in the `Authorization` header for protected routes (e.g., `/api/doctors`).
+- 🔑 Role-based security (`ROLE_USER` by default).
+- 🌐 SQLite as the embedded database.
+- 📄 Auth controller logic: [`AuthController.java`](https://github.com/zawhtutwin/appointments-api/blob/master/src/main/java/com/clinic/app/controllers/apis/AuthController.java)
+
+---
+## 📚 API Endpoints
+
+| Endpoint | Method | Request Body | Sample Response |
+|----------|--------|--------------|-----------------|
+| `http://localhost:8081/api/auth` | POST | See  [below](#api-auth-request-body)| See [below](#api-auth-response-body) |
+| `http://localhost:8081/api/doctors` | GET | None | See [below](#api-doctors-response) |
+
+---
+
+## 🔹 `/api/auth` 
+
+ <a name="api-auth-request-body"></a> Api Auth Request Body
 ```json
 {
-	"email": "user.example.com",
-	"password": "password"
+  "email": "user@example.com",
+  "password": "password"
+}
+
+```
+<a name="api-auth-response-body"></a> Response
+```json
+{
+    "apiKey": "53922079-9877-42b3-967d-4fa6c2438b97",
+    "expiresAt": "2025-04-29T04:23:20.485357600Z"
 }
 ```
 
-http://localhost:8081/api/doctor "GET"
-https://github.com/zawhtutwin/appointments-api/blob/master/src/main/java/com/clinic/app/controllers/apis/DoctorApiController.java
-sample json reponse
-```json
-[
-    {
-        "id": 1,
-        "name": "Dr.Mary Moe",
-        "phone": "234567"
-    }
-]
-```
 
-application.properties
+---
+
+## 🔹 `/api/doctors`  
+<a name="api-doctors-response"></a>Response
+```json
+{
+  "apiKey": "53922079-9877-42b3-967d-4fa6c2438b97",
+  "expiresAt": "2025-04-29T04:23:20.485357600Z"
+}
+```
+---
+
+### application.properties
 
 ```properties
 spring.application.name=clinic_app
@@ -38,3 +67,38 @@ spring.jpa.hibernate.ddl-auto=create
 spring.jpa.show-sql=true
 ```
 
+
+## 📁 Project Structure
+
+```text
+appointments-api/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── clinic/
+│   │   │           └── app/
+│   │   │               ├── config/
+│   │   │               │   └── SecurityConfig.java
+│   │   │               ├── controllers/
+│   │   │               │   └── apis/
+│   │   │               │       ├── ApiKeyAuthFilter.java
+│   │   │               │       └── AuthController.java
+│   │   │               ├── models/
+│   │   │               │   ├── ApiKey.java
+│   │   │               │   ├── Doctor.java
+│   │   │               │   └── User.java
+│   │   │               ├── repositories/
+│   │   │               │   ├── ApiKeyRepository.java
+│   │   │               │   ├── DoctorRepository.java
+│   │   │               │   └── UserRepository.java
+│   │   │               ├── services/
+│   │   │               │   └── ApiKeyService.java
+│   │   │               └── ClinicAppApplication.java
+│   └── resources/
+│       ├── application.properties
+│       └── static/
+├── .gitignore
+├── pom.xml
+└── README.md
+```
