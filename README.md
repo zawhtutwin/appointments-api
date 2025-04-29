@@ -8,10 +8,31 @@ http://localhost:8081/api/auth "POST" \
 https://github.com/zawhtutwin/appointments-api/blob/master/src/main/java/com/clinic/app/controllers/apis/AuthController.java
 
 
+# 📚 API Endpoints Documentation
+
 | URL | Method | Default Request Body | Sample Response |
 | --- | ------ | -------------------- | --------------- |
-| `http://localhost:8081/api/auth` | POST | ```json { "email": "user@example.com", "password": "password" } ``` | ```json { "apiKey": "53922079-9877-42b3-967d-4fa6c2438b97", "expiresAt": "2025-04-29T04:23:20.485357600Z" } ``` |
-| `http://localhost:8081/api/doctors` | GET | *(none)* | ```json [ { "id": 1, "name": "Dr.Mary Moe", "phone": "234567" } ] ``` |
+| `http://localhost:8081/api/auth` | POST | See [Request Body](#api-auth-request-body) | See [Response](#api-auth-sample-response) |
+| `http://localhost:8081/api/doctors` | GET | *(none)* | See [Response](#api-doctors-sample-response) |
+
+---
+
+## 🔹 `/api/auth` Request Body
+
+```json
+{
+  "email": "user@example.com",
+  "password": "password"
+}
+
+---
+
+## 🔹 `/api/doctors` Sample REsponse
+
+{
+  "apiKey": "53922079-9877-42b3-967d-4fa6c2438b97",
+  "expiresAt": "2025-04-29T04:23:20.485357600Z"
+}
 
 
 application.properties
