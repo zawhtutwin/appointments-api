@@ -12,7 +12,7 @@ Authentication is done via API key using Bearer tokens.
 - 🔐 Use the API key as a **Bearer token** in the `Authorization` header for protected routes (e.g., `/api/doctors`).
 - 🔑 Role-based security (`ROLE_USER` by default).
 - 🌐 SQLite as the embedded database.
-- 📄 View controller logic: [`AuthController.java`](https://github.com/zawhtutwin/appointments-api/blob/master/src/main/java/com/clinic/app/controllers/apis/AuthController.java)
+- 📄 Auth controller logic: [`AuthController.java`](https://github.com/zawhtutwin/appointments-api/blob/master/src/main/java/com/clinic/app/controllers/apis/AuthController.java)
 
 ---
 ## 📚 API Endpoints
