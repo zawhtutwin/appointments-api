@@ -66,37 +66,6 @@ spring.jpa.database-platform=org.hibernate.community.dialect.SQLiteDialect
 spring.jpa.hibernate.ddl-auto=create
 spring.jpa.show-sql=true
 ```
-
-
-## 📁 Project Structure
-
-```text
-appointments-api/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com/
-│   │   │       └── clinic/
-│   │   │           └── app/
-│   │   │               ├── config/
-│   │   │               │   └── SecurityConfig.java
-│   │   │               ├── controllers/
-│   │   │               │   └── apis/
-│   │   │               │       ├── ApiKeyAuthFilter.java
-│   │   │               │       └── AuthController.java
-│   │   │               ├── models/
-│   │   │               │   ├── ApiKey.java
-│   │   │               │   ├── Doctor.java
-│   │   │               │   └── User.java
-│   │   │               ├── repositories/
-│   │   │               │   ├── ApiKeyRepository.java
-│   │   │               │   ├── DoctorRepository.java
-│   │   │               │   └── UserRepository.java
-│   │   │               ├── services/
-│   │   │               │   └── ApiKeyService.java
-│   │   │               └── ClinicAppApplication.java
-│   └── resources/
-│       ├── application.properties
 │       └── static/
 ├── .gitignore
 ├── pom.xml
