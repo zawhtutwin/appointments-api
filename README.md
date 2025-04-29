@@ -1,5 +1,5 @@
 
-**Features: 
+**Features:**
 - Get the api key from api/auth "POST" 
 - Use the api key from that request in subsequent request like /api/doctors "GET"
 - Role Based Bearer Token Authorization(Default ROLE_USER)
