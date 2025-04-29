@@ -30,12 +30,12 @@ https://github.com/zawhtutwin/appointments-api/blob/master/src/main/java/com/cli
 ---
 
 ## 🔹 `/api/doctors` Sample REsponse
-
+```json
 {
   "apiKey": "53922079-9877-42b3-967d-4fa6c2438b97",
   "expiresAt": "2025-04-29T04:23:20.485357600Z"
 }
-
+```
 ---
 
 ### application.properties
