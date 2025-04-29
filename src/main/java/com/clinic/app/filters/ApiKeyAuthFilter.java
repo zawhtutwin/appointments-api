@@ -5,11 +5,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.clinic.app.controllers.apis.dtos.ErrorResponse;
+import com.clinic.app.models.ApiKey;
+import com.clinic.app.repos.ApiKeyRepository;
 import com.clinic.app.services.ApiKeyService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -23,8 +28,12 @@ public class ApiKeyAuthFilter extends OncePerRequestFilter {
 
     @Autowired
     ApiKeyService apiKeyService;
-
-
+ 
+    @Autowired
+    ApiKeyRepository apiKeyRepository;
+    
+    static String BEARER_PREFIX = "Bearer ";
+    static String INVALID_AUTH_HEADER = "Forbidden: Missing or invalid Authorization header";
     
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -37,20 +46,32 @@ public class ApiKeyAuthFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-
-
-        String authHeader = request.getHeader("Authorization");
-
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        
+        try {
+				String authHeader = request.getHeader("Authorization");
+				
+				if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+					throw new RuntimeException(INVALID_AUTH_HEADER);
+				}
+				   
+			    String token = authHeader.substring(BEARER_PREFIX.length());
+			    ApiKey apiKey = apiKeyRepository.findByKey(token).orElseThrow(()->new RuntimeException(INVALID_AUTH_HEADER));
+			    
+			    UsernamePasswordAuthenticationToken authentication =
+				    new UsernamePasswordAuthenticationToken(
+				        apiKey.getEmail(),
+				        null,
+				        List.of("ROLE_USER", "ROLE_ADMIN").stream().map(SimpleGrantedAuthority::new).toList()
+				    );
+				
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+            
+        }catch(RuntimeException e) {
+        	ObjectMapper objectMapper = new ObjectMapper();
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.getWriter().write("Forbidden: Missing or invalid Authorization header");
+            response.getWriter().write(objectMapper.writeValueAsString(new ErrorResponse(e.getMessage())));
             return;
         }
-       
-        UsernamePasswordAuthenticationToken authentication = 
-                new UsernamePasswordAuthenticationToken("apiKeyUser", null, List.of());
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }
 }

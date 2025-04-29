@@ -1,4 +1,4 @@
-package com.clinic.app.controllers.apis;
+package com.clinic.app.controllers.apis.dtos;
 
 import java.time.Instant;
 

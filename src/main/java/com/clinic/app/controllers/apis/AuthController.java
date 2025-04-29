@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.clinic.app.controllers.apis.dtos.AuthRequest;
+import com.clinic.app.controllers.apis.dtos.AuthResponse;
 import com.clinic.app.models.ApiKey;
 import com.clinic.app.models.User;
 import com.clinic.app.repos.ApiKeyRepository;
