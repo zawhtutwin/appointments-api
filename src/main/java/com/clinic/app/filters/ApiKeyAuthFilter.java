@@ -61,7 +61,7 @@ public class ApiKeyAuthFilter extends OncePerRequestFilter {
 				    new UsernamePasswordAuthenticationToken(
 				        apiKey.getEmail(),
 				        null,
-				        List.of("ROLE_USER", "ROLE_ADMIN").stream().map(SimpleGrantedAuthority::new).toList()
+				        List.of("ROLE_USER").stream().map(SimpleGrantedAuthority::new).toList()
 				    );
 				
 				SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.clinic.app.models.Doctor;
+import com.clinic.app.models.User;
 import com.clinic.app.repos.DoctorRepository;
-
-import jakarta.transaction.Transactional;
+import com.clinic.app.repos.UserRepository;
+import com.clinic.app.services.PolicyService;
 
 @RestController
 @RequestMapping("/api/doctors")
@@ -26,10 +28,23 @@ public class DoctorApiController {
     @Autowired
     private DoctorRepository doctorRepository;
 
+	@Autowired
+	PolicyService policyService;
+    
+	@Autowired
+	UserRepository userRepository;
+	
     // Get all doctors
     @GetMapping
-    public List<Doctor> getAllDoctors() {
-        return doctorRepository.findAll();
+    public ResponseEntity<?> getAllDoctors(Authentication authentication) {
+    	System.out.println("current log in user name:"+authentication.getPrincipal());
+		User currentUser = userRepository.findByEmail((String)authentication.getPrincipal()).orElseThrow(()->new RuntimeException("Cannot Find Current User")); // Get the currently logged-in user
+		
+		
+		List<Doctor> list =  doctorRepository.findAll().stream().filter(m->policyService.isAuthorized(currentUser, "READ",m)).toList();
+		return list.isEmpty()
+		        ? ResponseEntity.notFound().build()
+		        : ResponseEntity.ok(list);
     }
 
     // Get doctor by ID

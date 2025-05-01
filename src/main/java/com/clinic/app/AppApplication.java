@@ -26,17 +26,32 @@ public class AppApplication {
         return args -> {
         	doctorRepo.deleteAll();
         	userRepository.deleteAll();
-        	User user = new User();
-        	user.setEmail("user@example.com");
-        	user.setPassword(passwordEncoder.encode("password"));
+        	User userEditor = new User();
+        	userEditor.setEmail("admin@example.com");
+        	userEditor.setPassword(passwordEncoder.encode("password"));
+        	userEditor.setRole("ROLE_EDITOR");
+        	userRepository.save(userEditor);
         	
-        	user.setRole("ROLE_USER");
-        	userRepository.save(user);
+        	User userOwner = new User();
+        	userOwner.setEmail("owner@example.com");
+        	userOwner.setPassword(passwordEncoder.encode("password"));        	
+        	userOwner.setRole("ROLE_USER");
+        	userRepository.save(userOwner);
         	
-        	Doctor doctor = new Doctor();
-           doctor.setName("Dr.Mary Moe");
-           doctor.setPhone("234567");
-           doctorRepo.save(doctor);
+	       	Doctor doctor1 = new Doctor();
+	        doctor1.setName("Dr.Mya Mya");
+	        doctor1.setPhone("234567567");
+	        doctor1.setCreatedBy(userOwner);
+            doctorRepo.save(doctor1);
+
+           
+       	   Doctor doctor2 = new Doctor();
+		   doctor2.setName("Dr.Mary Moe");
+		   doctor2.setPhone("234567");
+		   doctor2.setCreatedBy(userOwner);
+		   doctorRepo.save(doctor2);
+           
+
         };
     }
 	
